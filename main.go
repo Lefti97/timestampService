@@ -45,6 +45,7 @@ func main() {
 			return ctx
 		},
 	}
+	fmt.Printf("Waiting for HTTP Request...\n")
 
 	err := server.ListenAndServe()
 	if errors.Is(err, http.ErrServerClosed) {
@@ -52,9 +53,10 @@ func main() {
 	} else if err != nil {
 		fmt.Printf("error listening for server: %s\n", err)
 	}
+
 }
 
-// The HTTP service
+// The JSON/HTTP service
 func getPtList(w http.ResponseWriter, r *http.Request) {
 	//Get url parameters
 	period := r.URL.Query().Get("period")
@@ -69,15 +71,19 @@ func getPtList(w http.ResponseWriter, r *http.Request) {
 	// Print response to both client and server
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		io.WriteString(w, requestStr)
-		io.WriteString(w, getJsonError(err))
-		fmt.Println(getJsonError(err))
+		//io.WriteString(w, requestStr)
+		io.WriteString(w, fmt.Sprintf("STATUS: %d\n", http.StatusBadRequest))
+		io.WriteString(w, "RESPONSE: "+getJsonError(err))
+		//fmt.Println(getJsonError(err))
 	} else {
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, requestStr)
-		io.WriteString(w, string(jsonRes))
-		fmt.Println(string(jsonRes))
+		//io.WriteString(w, requestStr)
+		io.WriteString(w, fmt.Sprintf("STATUS: %d\n", http.StatusBadRequest))
+		io.WriteString(w, "RESPONSE: "+string(jsonRes))
+		//fmt.Println(string(jsonRes))
 	}
+
+	fmt.Printf("Finished. Waiting for HTTP Request...\n")
 }
 
 // Get timestamps JSON results
