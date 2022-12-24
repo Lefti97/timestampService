@@ -15,7 +15,7 @@ func main() {
 	t2 := ""
 
 	//Check for console argument
-	if len(os.Args) >= 5 {
+	if len(os.Args) >= 6 {
 		portNum = os.Args[1]
 		period = os.Args[2]
 		tz = os.Args[3]

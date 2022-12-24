@@ -53,7 +53,6 @@ func main() {
 	} else if err != nil {
 		fmt.Printf("error listening for server: %s\n", err)
 	}
-
 }
 
 // The JSON/HTTP service
@@ -78,7 +77,7 @@ func getPtList(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusOK)
 		//io.WriteString(w, requestStr)
-		io.WriteString(w, fmt.Sprintf("STATUS: %d\n", http.StatusBadRequest))
+		io.WriteString(w, fmt.Sprintf("STATUS: %d\n", http.StatusOK))
 		io.WriteString(w, "RESPONSE: "+string(jsonRes))
 		//fmt.Println(string(jsonRes))
 	}
